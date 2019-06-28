@@ -127,7 +127,7 @@ all(){
 			;;
 	esac
 
-	get_clear_cloud_native
+
 }
 
 
