@@ -67,14 +67,22 @@ function metrics() {
 
 function storage() {
 	#Start rook before any other component that requires storage
-	ROOK_URL=7-rook
-	kubectl apply -f ${ROOK_URL}/000-operator.yaml
-	while [[ $(kubectl get crd clusters.ceph.rook.io pools.ceph.rook.io >/dev/null 2>&1) || $? -ne 0 ]]; do
-		echo "Waiting for Rook CRDs"
-		sleep 2
-	done
-	kubectl apply -f ${ROOK_URL}/001-cluster.yaml
-	kubectl apply -f ${ROOK_URL}/002-storageclass.yaml
+#	ROOK_URL=7-rook
+#	kubectl apply -f ${ROOK_URL}/000-operator.yaml
+#	while [[ $(kubectl get crd clusters.ceph.rook.io pools.ceph.rook.io >/dev/null 2>&1) || $? -ne 0 ]]; do
+#		echo "Waiting for Rook CRDs"
+#		sleep 2
+#	done
+#	kubectl apply -f ${ROOK_URL}/001-cluster.yaml
+#	kubectl apply -f ${ROOK_URL}/002-storageclass.yaml
+    git clone https://github.com/rook/rook.git
+    cd rook
+    cd cluster/examples/kubernetes/ceph
+    kubectl create -f common.yaml
+    kubectl create -f operator.yaml
+    kubectl create -f cluster-test.yaml
+    kubectl create -f pool.yaml
+    kubectl create -f storageclass.yaml
 }
 
 function monitoring() {
