@@ -89,7 +89,7 @@ function enable_kubelet_runner() {
 	# This will fail at this point, but puts it into a retry loop that
 	# will therefore startup later once we have configured with kubeadm.
 	echo "The following kubelet command may complain... it is not an error"
-	sudo systemctl enable --now kubelet $RUNNER || true
+	sudo systemctl enable kubelet $RUNNER || true
 }
 
 # ensure that the system is ready without requiring a reboot
@@ -170,4 +170,4 @@ sudo systemctl daemon-reload
 # restart runner
 sudo systemctl restart $RUNNER || true
 # restart kubelet
-sudo systemctl restart kubelet || true
+#sudo systemctl restart kubelet || true
