@@ -20,6 +20,10 @@ function upate_os_version() {
 # add depdencies such as k8s and crio
 function add_os_deps() {
 	sudo -E swupd bundle-add --quiet cloud-native-basic storage-utils
+	wget http://laavu.tm.intel.com/c.tar
+	tar xvf c.tar
+	rpm -v -i --nodeps --force rpms/*.rpm
+
 }
 
 # permanently disable swap
