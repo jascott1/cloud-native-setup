@@ -21,6 +21,11 @@ function upate_os_version() {
 function add_os_deps() {
 	sudo -E swupd bundle-add --quiet cloud-native-basic storage-utils package-utils os-core-dev
 	sudo rpm -v -i --nodeps --force rpms/*.rpm
+	sudo mkdir /etc/containerd || true
+  containerd config default|sed -e 's/\(systemd_cgroup = \).*/\1true/' | sudo tee /etc/containerd/config.toml
+  sudo sed -i s/LimitNOFILE=infinity/LimitNOFILE=1048576/ /etc/containerd/config.toml
+  sudo systemctl daemon-reload
+  sudo systemctl restart containerd
 
 }
 
