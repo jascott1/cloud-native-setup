@@ -23,7 +23,7 @@ function add_os_deps() {
 	sudo rpm -v -i --nodeps --force rpms/*.rpm
 	sudo mkdir /etc/containerd || true
   containerd config default|sed -e 's/\(systemd_cgroup = \).*/\1true/' | sudo tee /etc/containerd/config.toml
-  sudo sed -i s/LimitNOFILE=infinity/LimitNOFILE=1048576/ /etc/containerd/config.toml
+  sudo sed -i s/LimitNOFILE=infinity/LimitNOFILE=1048576/ /usr/lib/systemd/system/containerd.service
   sudo systemctl daemon-reload
   sudo systemctl restart containerd
 
